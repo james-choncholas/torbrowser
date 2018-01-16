@@ -1,14 +1,13 @@
 #!/bin/sh
 
-exec docker run \
+exec docker run -it\
     --rm \
-    --env XAUTHDATA="`/usr/bin/xauth nextract - ${DISPLAY}`" \
     --env DISPLAY=${DISPLAY} \
     --volume /tmp/.X11-unix:/tmp/.X11-unix \
-    --user 1000 \
+    --shm-size 2g \
     torbrowser
 
+    #--entrypoint "/bin/bash" \
     #--hostname `hostname` \
     #--volume $PWD/Downloads:/tor-browser/Browser/Downloads \
-    #--workdir /tor-browser \
     #--publish 9153 \

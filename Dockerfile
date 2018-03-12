@@ -1,5 +1,7 @@
 FROM phusion/baseimage:latest
 
+ARG pw
+
 ENV TOR_VERSION=7.5
 ENV TOR_FINGERPRINT=0xEF6E286DDA85EA2A4BA7DE684E2C6E8793298290
 ENV RELEASE_FILE=tor-browser-linux64-${TOR_VERSION}_en-US.tar.xz
@@ -27,7 +29,7 @@ RUN echo "Installing dependancies" && \
 # Install tor as user
 RUN echo "Adding User" && \
     useradd --create-home --home-dir /home/anon --shell /bin/bash anon && \
-    echo "anon:lol" | chpasswd && adduser anon sudo && \
+    echo "anon:"$pw | chpasswd && adduser anon sudo && \
     chown -R anon:anon /home/anon
 USER anon
 WORKDIR /home/anon
